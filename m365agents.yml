@@ -1,0 +1,96 @@
+version: 1.0
+name: Miriam Workspace Agent
+description: Evidence-first workspace and web research assistant with GitHub integration
+
+# Tool definitions
+tools:
+  # ========== TAVILY WEB RESEARCH ==========
+  - id: tavily-search
+    type: bash
+    description: Search the web with LLM-optimized results
+    command: tvly search "{query}" --json --depth advanced
+    timeout: 30000
+    environment:
+      TAVILY_API_KEY: ${TAVILY_API_KEY}
+    
+  - id: tavily-extract
+    type: bash
+    description: Extract clean markdown content from a specific URL
+    command: tvly extract "{url}" --json
+    timeout: 20000
+    environment:
+      TAVILY_API_KEY: ${TAVILY_API_KEY}
+    
+  - id: tavily-research
+    type: bash
+    description: Comprehensive AI-powered research with citations
+    command: tvly research "{topic}" --json --model pro
+    timeout: 120000
+    environment:
+      TAVILY_API_KEY: ${TAVILY_API_KEY}
+
+  - id: tavily-crawl
+    type: bash
+    description: Crawl a website and extract all pages to markdown
+    command: tvly crawl "{url}" --output-dir ./crawl-results --json
+    timeout: 60000
+    environment:
+      TAVILY_API_KEY: ${TAVILY_API_KEY}
+
+  - id: tavily-map
+    type: bash
+    description: Discover all URLs on a website without extracting content
+    command: tvly map "{url}" --json
+    timeout: 15000
+    environment:
+      TAVILY_API_KEY: ${TAVILY_API_KEY}
+
+  # ========== GITHUB REPOSITORY ACCESS ==========
+  - id: github-list-repos
+    type: bash
+    description: List all your GitHub repositories (public and private)
+    command: gh repo list --private --limit 100 --json nameWithOwner,description,isPrivate,url
+    timeout: 15000
+    environment:
+      GITHUB_TOKEN: ${GITHUB_TOKEN}
+    
+  - id: github-read-file
+    type: bash
+    description: Read a file from a GitHub repository
+    command: gh api repos/{owner}/{repo}/contents/{path}
+    timeout: 10000
+    environment:
+      GITHUB_TOKEN: ${GITHUB_TOKEN}
+    
+  - id: github-create-issue
+    type: bash
+    description: Create a new issue in a repository
+    command: gh issue create -R {owner}/{repo} -t "{title}" -b "{body}"
+    timeout: 10000
+    environment:
+      GITHUB_TOKEN: ${GITHUB_TOKEN}
+
+  - id: github-search-repos
+    type: bash
+    description: Search through your repositories
+    command: gh repo list --private --json name,description,url --limit 50
+    timeout: 10000
+    environment:
+      GITHUB_TOKEN: ${GITHUB_TOKEN}
+
+# Agent capabilities
+capabilities:
+  reasoning: true
+  planning: true
+  tool_use: true
+  streaming: true
+  web_search: true
+  code_analysis: true
+  evidence_grading: true
+
+# M365 OAuth Scopes
+permissions:
+  - User.Read
+  - Mail.Read
+  - Calendar.Read
+  - Files.Read.All
