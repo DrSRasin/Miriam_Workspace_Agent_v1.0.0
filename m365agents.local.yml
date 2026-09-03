@@ -1,0 +1,37 @@
+version: 1.0
+name: Miriam Workspace Agent (Local Dev)
+description: Development configuration with debug logging and ngrok support
+
+# Development endpoints
+endpoints:
+  base_url: ${NGROK_TUNNEL_URL}
+
+# Tool definitions (overrides for dev)
+tools:
+  - id: tavily-search
+    type: bash
+    description: Search the web with LLM-optimized results
+    command: tvly search "{query}" --json --depth basic
+    timeout: 30000
+    environment:
+      TAVILY_API_KEY: ${TAVILY_API_KEY}
+      DEBUG: "true"
+      LOG_LEVEL: "debug"
+
+  - id: github-list-repos
+    type: bash
+    description: List all your GitHub repositories
+    command: gh repo list --private --json nameWithOwner,description
+    timeout: 15000
+    environment:
+      GITHUB_TOKEN: ${GITHUB_TOKEN}
+      DEBUG: "true"
+
+# Agent capabilities
+capabilities:
+  debug_mode: true
+  verbose_logging: true
+  reasoning: true
+  planning: true
+  tool_use: true
+  streaming: true
