@@ -1,0 +1,34 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.23/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.23",
+  "version": "1.0.0",
+  "id": "bcafde7e-0482-4b40-aa9a-9d3f0d3463c8",
+  "packageName": "com.drsrasin.miriamworkspaceagent",
+  "developer": {
+    "name": "Miriam Workspace Agent",
+    "websiteUrl": "https://example.invalid",
+    "privacyUrl": "https://example.invalid/privacy",
+    "termsOfUseUrl": "https://example.invalid/terms"
+  },
+  "name": {
+    "short": "Miriam Workspace",
+    "full": "Miriam Workspace Agent"
+  },
+  "description": {
+    "short": "Evidence-first workspace and web research assistant.",
+    "full": "Miriam Workspace Agent supports careful workspace analysis and current web research with explicit evidence grading, source citation, and operator-controlled actions."
+  },
+  "icons": {
+    "outline": "outline.png",
+    "color": "color.png"
+  },
+  "accentColor": "#5B3F8C",
+  "copilotAgents": {
+    "declarativeAgents": [
+      {
+        "id": "miriamWorkspaceAgent",
+        "file": "declarativeAgent.json"
+      }
+    ]
+  }
+}
