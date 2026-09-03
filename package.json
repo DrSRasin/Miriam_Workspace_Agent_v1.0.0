@@ -1,0 +1,36 @@
+{
+  "name": "miriam-workspace-agent",
+  "version": "1.0.0",
+  "description": "Dr. Miriam: Evidence-first workspace agent with Tavily web research & GitHub integration",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "node src/index.ts",
+    "dev": "atk preview --debug",
+    "dev:local": "atk preview --m365agents-file m365agents.local.yml --debug",
+    "build": "atk package",
+    "provision": "atk provision",
+    "deploy": "atk deploy",
+    "validate": "atk validate",
+    "test": "npm run lint && atk validate",
+    "lint": "eslint src/ --ext .ts",
+    "clean": "rm -rf dist/ node_modules/"
+  },
+  "keywords": [
+    "m365-agents",
+    "copilot",
+    "declarative-agent",
+    "tavily",
+    "github",
+    "workspace-agent"
+  ],
+  "author": "Dr. Miriam",
+  "license": "MIT",
+  "dependencies": {
+    "@microsoft/m365-agents-toolkit": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "eslint": "^8.0.0"
+  }
+}
